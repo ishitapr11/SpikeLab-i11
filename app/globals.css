@@ -1,0 +1,382 @@
+@import "tailwindcss";
+
+/*
+  SpikeLab design tokens. The whole product is drawn in one ink on one paper:
+  colour never carries meaning on its own, line weight, dash and texture do.
+*/
+@theme {
+  --color-paper: #f3efe4;
+  --color-paper-2: #ebe5d6;
+  --color-paper-3: #e0d9c7;
+  --color-ink: #191814;
+  --color-ink-2: #3a3832;
+  --color-graphite: #66625a;
+  --color-rule: #cbc3b1;
+  --color-faint: #a59f90;
+
+  --font-display: var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
+  --font-serif: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
+  --font-hand: var(--font-caveat), "Segoe Print", "Bradley Hand", cursive;
+  --font-mono: var(--font-plex), ui-monospace, monospace;
+
+  --ease-ink: cubic-bezier(0.22, 0.8, 0.24, 1);
+  --duration-quick: 160ms;
+  --duration-calm: 420ms;
+}
+
+html {
+  color-scheme: light;
+  background: var(--color-paper);
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  text-rendering: optimizeLegibility;
+}
+
+/* Paper grain over everything, including the WebGL canvas, so the drawing sits in the page. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.41 0 0 0 0 0.33 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+:focus-visible {
+  outline: 1.5px dashed var(--color-ink);
+  outline-offset: 4px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Typography helpers ---------- */
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-graphite);
+}
+
+.hand {
+  font-family: var(--font-hand);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.figure-caption {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--color-graphite);
+}
+
+/* ---------- Hand-inked boxes ---------- */
+
+/* A box whose outline is drawn twice with a slightly unsteady pen. Text stays crisp. */
+.sketch {
+  position: relative;
+  isolation: isolate;
+}
+
+.sketch::before,
+.sketch::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border: 1.3px solid var(--color-ink);
+  border-radius: 3px 7px 4px 6px / 6px 3px 7px 4px;
+}
+
+.sketch::before {
+  inset: 0;
+  filter: url(#ink-wobble);
+}
+
+.sketch::after {
+  inset: 2px -1px -1px 2px;
+  opacity: 0.28;
+  filter: url(#ink-wobble-2);
+}
+
+.sketch-quiet::before {
+  border-color: var(--color-faint);
+}
+
+.sketch-quiet::after {
+  display: none;
+}
+
+/* A single hand-ruled line. */
+.rule {
+  height: 1.5px;
+  background: var(--color-ink);
+  filter: url(#ink-wobble);
+}
+
+.rule-faint {
+  height: 1px;
+  background: var(--color-rule);
+}
+
+/* ---------- Buttons ---------- */
+
+.ink-btn {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  line-height: 1;
+  padding: 0.8rem 1.25rem;
+  cursor: pointer;
+  transition: transform var(--duration-quick) var(--ease-ink), color var(--duration-quick);
+  white-space: nowrap;
+}
+
+.ink-btn::before,
+.ink-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 4px 7px 3px 6px / 6px 3px 7px 4px;
+  transition: transform var(--duration-quick) var(--ease-ink), opacity var(--duration-quick);
+}
+
+/* Offset hatched "printing" shadow, revealed on hover. */
+.ink-btn::after {
+  z-index: -2;
+  transform: translate(0, 0);
+  opacity: 0;
+  background: repeating-linear-gradient(-45deg, var(--color-ink) 0 1px, transparent 1px 4px);
+  filter: url(#ink-wobble-2);
+}
+
+.ink-btn:hover::after,
+.ink-btn:focus-visible::after {
+  transform: translate(4px, 4px);
+  opacity: 0.9;
+}
+
+.ink-btn:hover,
+.ink-btn:focus-visible {
+  transform: translate(-1px, -1px);
+}
+
+.ink-btn:active {
+  transform: translate(1px, 1px);
+}
+
+.ink-btn:active::after {
+  transform: translate(1px, 1px);
+}
+
+.ink-btn-solid {
+  color: var(--color-paper);
+}
+
+.ink-btn-solid::before {
+  background: var(--color-ink);
+  filter: url(#ink-wobble);
+}
+
+.ink-btn-outline {
+  color: var(--color-ink);
+}
+
+.ink-btn-outline::before {
+  background: var(--color-paper);
+  border: 1.3px solid var(--color-ink);
+  filter: url(#ink-wobble);
+}
+
+.ink-btn-small {
+  font-size: 13px;
+  padding: 0.5rem 0.8rem;
+}
+
+.ink-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+  transform: none;
+}
+
+.ink-btn:disabled::after {
+  opacity: 0;
+}
+
+/* Text link with a hand-drawn underline that is drawn in on hover. */
+.ink-link {
+  position: relative;
+  text-decoration: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 6' preserveAspectRatio='none'%3E%3Cpath d='M1 4.2 C 20 2.2, 38 5.2, 60 3.4 S 100 2.4, 119 3.8' fill='none' stroke='%23191814' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 6px;
+  padding-bottom: 3px;
+  transition: background-size var(--duration-calm) var(--ease-ink);
+}
+
+.ink-link:hover,
+.ink-link:focus-visible,
+.ink-link[aria-current="true"] {
+  background-size: 100% 6px;
+}
+
+.ink-link-static {
+  background-size: 100% 6px;
+}
+
+/* ---------- Neuron stage ---------- */
+
+.neuron-stage canvas {
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.neuron-stage canvas:active {
+  cursor: grabbing;
+}
+
+.neuron-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  z-index: 6;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.neuron-label svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+}
+
+.neuron-label button {
+  position: absolute;
+  pointer-events: auto;
+  font-family: var(--font-hand);
+  font-size: 21px;
+  line-height: 1;
+  color: var(--color-ink);
+  padding: 2px 6px 4px;
+  white-space: nowrap;
+  background: color-mix(in srgb, var(--color-paper) 82%, transparent);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.neuron-label button:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.neuron-label button[aria-pressed="true"] {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* ---------- Range input, drawn as a ruled scale ---------- */
+
+input[type="range"] {
+  appearance: none;
+  width: 100%;
+  height: 18px;
+  background:
+    linear-gradient(var(--color-ink), var(--color-ink)) 0 50% / 100% 1.5px no-repeat,
+    repeating-linear-gradient(90deg, var(--color-ink-2) 0 1px, transparent 1px 10%) 0 50% / 100% 7px no-repeat;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 17px;
+  height: 17px;
+  border: 1.5px solid var(--color-ink);
+  border-radius: 50%;
+  background: var(--color-paper);
+  box-shadow: inset 0 0 0 3px var(--color-paper), inset 0 0 0 8px var(--color-ink);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid var(--color-ink);
+  border-radius: 50%;
+  background: var(--color-paper);
+  box-shadow: inset 0 0 0 3px var(--color-paper), inset 0 0 0 8px var(--color-ink);
+}
+
+input[type="range"]::-moz-range-track {
+  background: transparent;
+}
+
+/* ---------- Charts ---------- */
+
+/* Axes and grid get the unsteady pen. The data line itself stays exact. */
+.ink-chart .recharts-cartesian-axis-line,
+.ink-chart .recharts-cartesian-axis-tick-line,
+.ink-chart .recharts-cartesian-grid line,
+.ink-chart .recharts-reference-line line {
+  filter: url(#ink-wobble);
+}
+
+.ink-chart .recharts-cartesian-axis-tick-value {
+  font-family: var(--font-mono);
+}
+
+.ink-chart .recharts-tooltip-cursor {
+  stroke: var(--color-ink);
+  stroke-dasharray: 2 3;
+}
+
+/* ---------- Drawn-in strokes ---------- */
+
+@keyframes ink-draw {
+  from {
+    stroke-dashoffset: var(--len, 1000);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-btn,
+  .ink-btn::after,
+  .ink-link {
+    transition: none;
+  }
+}
