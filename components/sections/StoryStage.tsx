@@ -56,9 +56,9 @@ export function StoryStage({
     offset: ["start start", "end end"],
   });
 
-  const anatomyOpacity = useTransform(scrollYProgress, [0, 0.24, 0.36], [1, 1, 0]);
-  const signalOpacity = useTransform(scrollYProgress, [0.3, 0.42, 0.6, 0.7], [0, 1, 1, 0]);
-  const parameterOpacity = useTransform(scrollYProgress, [0.64, 0.76, 1], [0, 1, 1]);
+  const anatomyOpacity = useTransform(scrollYProgress, [0, 0.21, 0.3], [1, 1, 0]);
+  const signalOpacity = useTransform(scrollYProgress, [0.25, 0.35, 0.56, 0.67], [0, 1, 1, 0]);
+  const parameterOpacity = useTransform(scrollYProgress, [0.61, 0.74, 1], [0, 1, 1]);
 
   useEffect(() => {
     compactRef.current = compact;
@@ -82,7 +82,7 @@ export function StoryStage({
           };
           const signal = rise("signalling");
           const parameters = rise("parameters");
-          progressRef.current = parameters > 0 ? 0.62 + 0.22 * parameters : 0.22 + 0.24 * signal;
+          progressRef.current = parameters > 0 ? 0.54 + 0.26 * parameters : 0.19 + 0.21 * signal;
           next = parameters >= 0.6 ? "parameters" : signal >= 0.6 ? "signalling" : "anatomy";
           if (rect.top > 48) next = "hero";
         } else {
@@ -177,9 +177,9 @@ export function StoryStage({
   }
 
   return (
-    <section ref={stageRef} id="anatomy" className="relative h-[460vh]">
-      <div id="signalling" className="pointer-events-none absolute top-[52%] h-px w-px" />
-      <div id="parameters" className="pointer-events-none absolute top-[86%] h-px w-px" />
+    <section ref={stageRef} id="anatomy" className="relative h-[520vh]">
+      <div id="signalling" className="pointer-events-none absolute top-[38%] h-px w-px" />
+      <div id="parameters" className="pointer-events-none absolute top-[73%] h-px w-px" />
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         <div className="absolute inset-0">{viewport}</div>
         <div className="absolute inset-x-0 top-16 bottom-0">

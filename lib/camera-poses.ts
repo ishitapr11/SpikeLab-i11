@@ -76,10 +76,10 @@ function poses(compact: boolean): CameraPose[] {
   const centred = compact ? { ...CENTRED, ...COMPACT_OVERRIDES.centred } : CENTRED;
   return [
     { at: 0, ...full },
-    { at: 0.22, ...full },
-    { at: 0.46, ...close },
-    { at: 0.62, ...close },
-    { at: 0.84, ...centred },
+    { at: 0.19, ...full },
+    { at: 0.4, ...close },
+    { at: 0.54, ...close },
+    { at: 0.8, ...centred },
     { at: 1, ...centred },
   ];
 }
@@ -89,13 +89,13 @@ const COMPACT_POSES = poses(true);
 
 export const PHASE_SCROLL: Record<StoryPhase, number> = {
   anatomy: 0.04,
-  signalling: 0.54,
+  signalling: 0.47,
   parameters: 0.9,
 };
 
 export function phaseFromProgress(progress: number): StoryPhase {
-  if (progress < 0.36) return "anatomy";
-  if (progress < 0.7) return "signalling";
+  if (progress < 0.3) return "anatomy";
+  if (progress < 0.67) return "signalling";
   return "parameters";
 }
 
@@ -132,8 +132,8 @@ export function samplePose(progress: number, reduced: boolean, compact = false):
   const list = compact ? COMPACT_POSES : DESKTOP_POSES;
   const p = Math.min(1, Math.max(0, progress));
   if (reduced) {
-    if (p < 0.36) return list[0];
-    if (p < 0.7) return list[2];
+    if (p < 0.3) return list[0];
+    if (p < 0.67) return list[2];
     return list[4];
   }
 
