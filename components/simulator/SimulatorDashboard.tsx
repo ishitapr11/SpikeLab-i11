@@ -60,10 +60,6 @@ export function SimulatorDashboard() {
               The simulation <span className="italic">lab.</span>
             </h1>
           </div>
-          <p className="max-w-md text-[15px] leading-relaxed text-ink-2">
-            Change the injected current and the membrane, then read the voltage this equation actually
-            produces. Every number on the page comes from that run.
-          </p>
         </div>
 
         <div className="rule mt-6" aria-hidden="true" />
