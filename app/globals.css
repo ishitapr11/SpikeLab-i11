@@ -5,9 +5,9 @@
   colour never carries meaning on its own, line weight, dash and texture do.
 */
 @theme {
-  --color-paper: #f3efe4;
-  --color-paper-2: #ebe5d6;
-  --color-paper-3: #e0d9c7;
+  --color-paper: #fff7f8;
+  --color-paper-2: #ffe4e1;
+  --color-paper-3: #f9d2cd;
   --color-ink: #191814;
   --color-ink-2: #3a3832;
   --color-graphite: #66625a;
