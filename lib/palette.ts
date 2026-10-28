@@ -3,7 +3,7 @@
  * and are kept as raw sRGB triples so shaders write the exact page colours.
  */
 export const INK_HEX = "#191814";
-export const PAPER_HEX = "#f3efe4";
+export const PAPER_HEX = "#fff7f8";
 export const GRAPHITE_HEX = "#66625a";
 export const RULE_HEX = "#cbc3b1";
 
