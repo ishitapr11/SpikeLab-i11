@@ -2,9 +2,13 @@
 
 SpikeLab is an interactive exhibit and a leaky integrate-and-fire simulator. The landing page scrolls a single procedurally drawn neuron from a full view into the soma and axon hillock, then turns it upright beside the parameters used in the lab. The simulation runs entirely in the browser.
 
-## Look
+## What you can do
 
-The whole product is drawn in one ink on one paper, like a scientific plate. The neuron is rendered by a custom engraving shader (`components/neuron/ink-materials.ts`): tone is built from hatch lines that follow each process, cross-contour rings in shadow, and stipple on the soma, closed by a constant-width inverted-hull outline. The nucleus is drawn through the soma by casting the view ray in the cell's own coordinates. Interface outlines get their unsteady pen from shared SVG displacement filters (`components/ui/InkFilters.tsx`); chart data lines are left exact and only axes and grid are wobbled.
+-Scroll the landing page to follow the neuron from the whole cell into the soma and axon hillock.
+-Open the simulation lab and change the injected current and the membrane parameters.
+-Read the voltage trace, with spike times marked on it.
+-See the firing rate against input current.
+-Read the spike count, time to first spike, firing rate and minimum current to fire, all calculated from the same simulation run.
 
 ## Stack
 
@@ -25,12 +29,19 @@ npm run lint
 npm run build
 npm start
 ```
+## Project structure
 
-Open the dev server at `http://localhost:3000`. The simulator is at `/simulator`.
+| Folder | What is in it |
+|---|---|
+| `app/` | The pages (`page.tsx` for the landing page, `simulator/page.tsx` for the lab), global styles and the site icon |
+| `components/` | The interface: hero, 3D neuron, simulator charts and controls, navigation and shared parts |
+| `hooks/` | React hooks for the simulation, screen size and reduced motion |
+| `lib/` | The model and the data: neuron model, firing rate, parameter limits and checks, colours |
+| `tests/` | Tests for the neuron model and the parameter checks |
 
-## Model
+## The model
 
-Subthreshold voltage uses
+This is a leaky integrate-and-fire neuron. Below threshold, the membrane voltage follows
 
 τm dV/dt = −(V − Vrest) + Rm I
 
@@ -40,9 +51,12 @@ V(t+Δt) = V∞ + (V − V∞) exp(−Δt / τm), V∞ = Vrest + Rm I.
 
 The fixed step is 0.1 ms. A spike is recorded when voltage reaches threshold. Voltage then resets to the resting potential. The refractory period is measured from that spike time and holds the voltage at rest. Firing rate is the spike count divided by the full simulation duration in seconds.
 
-Minimum current to fire is a binary search, to 0.01 nA, for the smallest current in 0–10 nA that produces at least one spike before the recording ends. It is not the same number as the steady-state rheobase (Vth − Vrest) / Rm. If 10 nA produces no spike, the metric is unavailable.
+Minimum current to fire is found with a binary search, to 0.01 nA, for the smallest current between 0 and 10 nA that produces at least one spike before the recording ends. It is not the same number as the steady-state rheobase, (V_threshold - V_rest) / R_m. If 10 nA produces no spike, the metric is shown as unavailable.
 
-The open circles on the voltage plot are spike times. They are not a Hodgkin–Huxley waveform.
+-The time step is a fixed 0.1 ms.
+-A spike is recorded when the voltage reaches threshold. The voltage then resets to the resting potential.
+-The refractory period is measured from the spike time and holds the voltage at rest.
+-Firing rate is the spike count divided by the full simulation duration in seconds.
 
 ## Deployment
 
