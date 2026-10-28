@@ -4,11 +4,11 @@ SpikeLab is an interactive exhibit and a leaky integrate-and-fire simulator. The
 
 ## What you can do
 
--Scroll the landing page to follow the neuron from the whole cell into the soma and axon hillock.
--Open the simulation lab and change the injected current and the membrane parameters.
--Read the voltage trace, with spike times marked on it.
--See the firing rate against input current.
--Read the spike count, time to first spike, firing rate and minimum current to fire, all calculated from the same simulation run.
+- Scroll the landing page to follow the neuron from the whole cell into the soma and axon hillock.
+- Open the simulation lab and change the injected current and the membrane parameters.
+- Read the voltage trace, with spike times marked on it.
+- See the firing rate against input current.
+- Read the spike count, time to first spike, firing rate and minimum current to fire, all calculated from the same simulation run.
 
 ## Stack
 
