@@ -14,7 +14,7 @@ export function ModelExplanation() {
       title: "Passive membrane",
       body: (
         <>
-          Between spikes the voltage follows
+          The voltage is pushed up by the input current and, at the same time, leaks back toward its resting value. Between spikes the voltage follows
           <Equation>
             τ<S>m</S> dV/dt = −(V − V<S>rest</S>) + R<S>m</S> I
           </Equation>
@@ -35,19 +35,19 @@ export function ModelExplanation() {
     },
     {
       title: "Threshold",
-      body: "If the updated voltage reaches Vth, the simulator records that time as a spike.",
+      body: "When the voltage reaches the threshold line, the neuron fires. If the updated voltage reaches Vth, the simulator records that time as a spike.",
     },
     {
       title: "Reset and refractory period",
-      body: "Voltage is set back to Vrest, which is the reset potential in this lab. From the spike time until tref has elapsed the voltage stays at rest and another spike cannot occur. A refractory period of 0 ms is safe: the loop still advances one step per spike.",
+      body: "Voltage is set back to Vrest, which is the reset potential in this lab. The voltage then stays at rest for the refractory period (tref), and another spike cannot occur. In a real neuron this pause comes from ion channels that need time to recover. A refractory period of 0 ms is allowed, and the neuron can then fire again on the very next step.",
     },
     {
       title: "Firing rate",
-      body: "Spike count divided by the duration in seconds. The whole window counts, including the wait before the first spike.",
+      body: "It is measured in spikes per second (spike count divided by the duration in seconds). The whole window counts, including the wait before the first spike.",
     },
     {
       title: "Firing-rate curve",
-      body: "The same integrator rerun at currents from 0 to 10 nA in 0.5 nA steps. It is not a fitted formula.",
+      body: "The simulator runs the whole neuron again for each current from 0 to 10 nA in steps of 0.5 nA, and each result becomes one point. It is a set of real results, not a formula fitted to the data.",
     },
     {
       title: "Minimum current to fire",
