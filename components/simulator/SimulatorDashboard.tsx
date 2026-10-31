@@ -55,7 +55,7 @@ export function SimulatorDashboard() {
       <main className="mx-auto max-w-[1360px] px-4 pt-8 pb-16 sm:px-6 lg:px-10">
         <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
-            <p className="eyebrow">Plate II &nbsp;·&nbsp; Leaky integrate-and-fire</p>
+            <p className="eyebrow">Leaky integrate-and-fire</p>
             <h1 className="mt-3 font-display text-[clamp(2.8rem,6vw,4.6rem)] leading-[0.9]">
               The simulation <span className="italic">lab.</span>
             </h1>
