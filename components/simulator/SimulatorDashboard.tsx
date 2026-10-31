@@ -153,7 +153,7 @@ export function SimulatorDashboard() {
                 />
                 <section aria-labelledby="notes-heading" className="sketch bg-paper-2/60 px-5 py-5">
                   <h2 id="notes-heading" className="hand text-[26px] leading-none">
-                    notes on this run
+                    ➴notes on this run
                   </h2>
                   <ul className="mt-3 space-y-2 text-[15px] leading-relaxed">
                     {insights.map((insight) => (
