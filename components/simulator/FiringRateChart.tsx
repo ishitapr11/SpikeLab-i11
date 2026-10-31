@@ -57,7 +57,7 @@ export function FiringRateChart({
     <ChartFrame
       id="rate-heading"
       figure="Fig. II.2"
-      title="Firing-rate curve"
+      title="Firing-rate curveᝰ"
       note={
         <>
           Each open circle is a separate run of the same integrator at that current, with every other
