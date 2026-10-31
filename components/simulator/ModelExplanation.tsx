@@ -77,7 +77,7 @@ export function ModelExplanation() {
           </h3>
           <ul className="mt-4 grid gap-y-4">
             <li className="grid grid-cols-[1.6rem_1fr] gap-x-2">
-              <span className="font-display text-[18px] italic text-graphite">1.</span>
+              <span className="font-display text-[18px] italic text-graphite">★</span>
               <p className="text-[14.5px] leading-relaxed text-ink-2">
                 <strong className="font-medium text-ink">Integrate:</strong> The neuron has an
                 internal voltage (that&apos;s the membrane potential), and when it receives
@@ -86,7 +86,7 @@ export function ModelExplanation() {
               </p>
             </li>
             <li className="grid grid-cols-[1.6rem_1fr] gap-x-2">
-              <span className="font-display text-[18px] italic text-graphite">2.</span>
+              <span className="font-display text-[18px] italic text-graphite">★</span>
               <p className="text-[14.5px] leading-relaxed text-ink-2">
                 <strong className="font-medium text-ink">Leak:</strong> If no new inputs arrive,
                 the voltage decays and drifts back down toward its baseline resting level over
@@ -94,7 +94,7 @@ export function ModelExplanation() {
               </p>
             </li>
             <li className="grid grid-cols-[1.6rem_1fr] gap-x-2">
-              <span className="font-display text-[18px] italic text-graphite">3.</span>
+              <span className="font-display text-[18px] italic text-graphite">★</span>
               <p className="text-[14.5px] leading-relaxed text-ink-2">
                 <strong className="font-medium text-ink">Fire:</strong> If the inputs arrive fast
                 enough to push the voltage beyond a specific limit (the threshold), then the neuron
@@ -102,7 +102,7 @@ export function ModelExplanation() {
               </p>
             </li>
             <li className="grid grid-cols-[1.6rem_1fr] gap-x-2">
-              <span className="font-display text-[18px] italic text-graphite">4.</span>
+              <span className="font-display text-[18px] italic text-graphite">★</span>
               <p className="text-[14.5px] leading-relaxed text-ink-2">
                 <strong className="font-medium text-ink">Reset:</strong> Immediately after firing,
                 its voltage drops back down to a low baseline value (the reset potential) and the
