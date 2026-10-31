@@ -72,6 +72,44 @@ export function ModelExplanation() {
             real neurons add voltage-gated conductances, synapses, shape and noise — none of which
             are here
           </p>
+                    <h3 className="mt-8 font-display text-[26px] leading-tight">
+            The model in <span className="italic">four steps.</span>
+          </h3>
+          <ul className="mt-4 grid gap-y-4">
+            <li className="grid grid-cols-[1.6rem_1fr] gap-x-2">
+              <span className="font-display text-[18px] italic text-graphite">1.</span>
+              <p className="text-[14.5px] leading-relaxed text-ink-2">
+                <strong className="font-medium text-ink">Integrate:</strong> The neuron has an
+                internal voltage (that&apos;s the membrane potential), and when it receives
+                electrical inputs from other neurons, it adds them together, causing its internal
+                voltage to rise.
+              </p>
+            </li>
+            <li className="grid grid-cols-[1.6rem_1fr] gap-x-2">
+              <span className="font-display text-[18px] italic text-graphite">2.</span>
+              <p className="text-[14.5px] leading-relaxed text-ink-2">
+                <strong className="font-medium text-ink">Leak:</strong> If no new inputs arrive,
+                the voltage decays and drifts back down toward its baseline resting level over
+                time.
+              </p>
+            </li>
+            <li className="grid grid-cols-[1.6rem_1fr] gap-x-2">
+              <span className="font-display text-[18px] italic text-graphite">3.</span>
+              <p className="text-[14.5px] leading-relaxed text-ink-2">
+                <strong className="font-medium text-ink">Fire:</strong> If the inputs arrive fast
+                enough to push the voltage beyond a specific limit (the threshold), then the neuron
+                fires a single electrical output pulse (a spike).
+              </p>
+            </li>
+            <li className="grid grid-cols-[1.6rem_1fr] gap-x-2">
+              <span className="font-display text-[18px] italic text-graphite">4.</span>
+              <p className="text-[14.5px] leading-relaxed text-ink-2">
+                <strong className="font-medium text-ink">Reset:</strong> Immediately after firing,
+                its voltage drops back down to a low baseline value (the reset potential) and the
+                process repeats.
+              </p>
+            </li>
+          </ul>
         </div>
         <ol className="grid gap-x-10 gap-y-6 md:grid-cols-2">
           {items.map((item, index) => (
