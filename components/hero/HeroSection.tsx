@@ -19,11 +19,8 @@ export function HeroSection({ onExplore, reduced }: { onExplore: () => void; red
     <section className="relative flex min-h-[100svh] flex-col px-4 pt-20 pb-6 sm:px-6 lg:px-10">
       <div className="mx-auto grid w-full max-w-[1360px] flex-1 items-center gap-10 py-6 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
         <div>
-          <motion.p className="eyebrow" {...rise(0)}>
-            Plate I &nbsp;·&nbsp; An interactive study of the firing neuron
-          </motion.p>
           <motion.h1
-            className="mt-5 font-display text-[clamp(4.5rem,13vw,10.5rem)] leading-[0.82] tracking-[-0.035em]"
+            className="mt-0 font-display text-[clamp(4.5rem,13vw,10.5rem)] leading-[0.82] tracking-[-0.035em]"
             {...rise(0.08)}
           >
             Spike<span className="italic">Lab</span>
