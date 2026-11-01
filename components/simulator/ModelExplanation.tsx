@@ -123,6 +123,42 @@ export function ModelExplanation() {
           ))}
         </ol>
       </div>
+      <div className="mt-12">
+        <div className="rule" aria-hidden="true" />
+        <h3 className="mt-6 font-display text-[28px] leading-tight">
+          What this model <span className="italic">leaves out.</span>
+        </h3>
+        <ul className="mt-4 max-w-3xl space-y-2 text-[14.5px] leading-relaxed text-ink-2">
+          <li className="grid grid-cols-[1rem_1fr] gap-2">
+            <span aria-hidden="true">–</span>
+            <span>There are no ion channels. When the voltage reaches the threshold, the model only records a spike time. It does not calculate a spike from sodium and potassium currents, which the Hodgkin-Huxley view does.</span>
+          </li>
+          <li className="grid grid-cols-[1rem_1fr] gap-2">
+            <span aria-hidden="true">–</span>
+            <span>There is no spike shape. The voltage resets instantly, and the open circles mark when spikes happen, not what a real action potential looks like.</span>
+          </li>
+          <li className="grid grid-cols-[1rem_1fr] gap-2">
+            <span aria-hidden="true">–</span>
+            <span>The threshold never changes, and the reset potential is locked to the resting potential.</span>
+          </li>
+          <li className="grid grid-cols-[1rem_1fr] gap-2">
+            <span aria-hidden="true">–</span>
+            <span>The refractory period is a number you choose. In a real neuron it comes from the behaviour of the ion channels.</span>
+          </li>
+          <li className="grid grid-cols-[1rem_1fr] gap-2">
+            <span aria-hidden="true">–</span>
+            <span>The neuron is a single point. There are no dendrites, no cell shape and no signal travelling along an axon.</span>
+          </li>
+          <li className="grid grid-cols-[1rem_1fr] gap-2">
+            <span aria-hidden="true">–</span>
+            <span>There are no synapses. The input is a constant current that you set.</span>
+          </li>
+          <li className="grid grid-cols-[1rem_1fr] gap-2">
+            <span aria-hidden="true">–</span>
+            <span>There is no noise and no adaptation. The same settings give the same result every time, and the firing rate does not slow down during a long stimulus as it often does in real neurons.</span>
+          </li>
+        </ul>
+      </div>
       <p className="mt-8 max-w-3xl text-[14px] leading-relaxed text-graphite">
         The open circles on the voltage plot are spike times, not the shape of a biological action
         potential. A standard reference for the equation is the free textbook{" "}
