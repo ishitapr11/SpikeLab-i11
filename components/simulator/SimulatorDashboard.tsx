@@ -7,6 +7,8 @@ import type { NeuronParameters, ParameterKey } from "@/lib/simulation-types";
 import { useNeuronSimulation } from "@/hooks/useNeuronSimulation";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { FiringRateChart } from "@/components/simulator/FiringRateChart";
+import { HodgkinHuxleyExplanation } from "@/components/simulator/HodgkinHuxleyExplanation";
+import { HodgkinHuxleyLab } from "@/components/simulator/HodgkinHuxleyLab";
 import { MetricCard } from "@/components/simulator/MetricCard";
 import { ModelExplanation } from "@/components/simulator/ModelExplanation";
 import { ParameterControls } from "@/components/simulator/ParameterControls";
@@ -20,6 +22,7 @@ export function SimulatorDashboard() {
   const [parameters, setParameters] = useState<NeuronParameters>(DEFAULT_PARAMETERS);
   const { validation, result, curve, insights, curvePending } = useNeuronSimulation(parameters);
   const reduced = useReducedMotion();
+  const [model, setModel] = useState<"lif" | "hh">("lif");
 
   const update = (key: ParameterKey, value: number) => {
     setParameters((current) => ({ ...current, [key]: value }));
@@ -62,6 +65,39 @@ export function SimulatorDashboard() {
           </div>
         </div>
 
+        <div className="mt-6" role="group" aria-label="Choose a model">
+          <p className="eyebrow">Model</p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            <button
+              type="button"
+              aria-pressed={model === "lif"}
+              className={cn(
+                "px-3 py-2 text-[15px]",
+                model === "lif" ? "sketch bg-ink text-paper" : "sketch sketch-quiet text-ink-2 hover:text-ink",
+              )}
+              onClick={() => setModel("lif")}
+            >
+              Leaky integrate-and-fire
+            </button>
+            <button
+              type="button"
+              aria-pressed={model === "hh"}
+              className={cn(
+                "px-3 py-2 text-[15px]",
+                model === "hh" ? "sketch bg-ink text-paper" : "sketch sketch-quiet text-ink-2 hover:text-ink",
+              )}
+              onClick={() => setModel("hh")}
+            >
+              Hodgkin-Huxley
+            </button>
+          </div>
+          <p className="hand mt-2.5 text-[19px] leading-tight text-ink-2" aria-live="polite">
+            {model === "lif" ? "simple model: threshold and reset" : "detailed model: sodium and potassium channels"}
+          </p>
+        </div>
+
+        {model === "lif" ? (
+          <>
         <div className="rule mt-6" aria-hidden="true" />
         {result ? (
           <div className="grid sm:grid-cols-2 sm:divide-x sm:divide-rule xl:grid-cols-4" aria-live="polite">
@@ -170,8 +206,12 @@ export function SimulatorDashboard() {
             )}
           </div>
         </div>
+          </>
+        ) : (
+          <HodgkinHuxleyLab />
+        )}
         <div className="mt-20">
-          <ModelExplanation />
+          {model === "lif" ? <ModelExplanation /> : <HodgkinHuxleyExplanation />}
         </div>
       </main>
       <Footer />
