@@ -145,7 +145,7 @@ export function HodgkinHuxleyExplanation() {
             The Hodgkin-Huxley <span className="italic">model.</span>
           </h2>
           <p className="mt-3 text-[15px] leading-relaxed text-ink-2">
-            In 1952 Hodgkin and Huxley described the action potential of the squid giant axon with
+            In 1952, Hodgkin and Huxley described the action potential of the squid giant axon with
             ion channels. Unlike the leaky integrate-and-fire model, the spike is calculated from
             sodium, potassium and leak currents, so it has a real shape.
           </p>
