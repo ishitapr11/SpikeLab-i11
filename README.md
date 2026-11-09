@@ -137,5 +137,3 @@ This is a standard Next.js project. Import the GitHub repository into Vercel, se
 ## Author
 
 Ishita 
-
-[Optional: add a line about how the project was built, for example that it was built with help from Claude.]
